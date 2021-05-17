@@ -4,8 +4,13 @@
   "description": "An ecommerce platform for books.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startDev": "nodemon server.js"
   },
   "author": "Dinesh Bala",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1"
+  }
 }
