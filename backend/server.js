@@ -2,6 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
+const bookRoutes = require("../backend/routes/bookRoutes");
+
 dotenv.config({});
 
 const app = express();
@@ -19,6 +21,4 @@ mongoose
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-app.get("/", (req, res) => {
-  res.status(200).send("Homepage");
-});
+app.use("/api/v1/books", bookRoutes);
