@@ -23,7 +23,8 @@ const bookSchema = new mongoose.Schema({
   isbn: String,
   author: String,
   publisher: String,
-  publishedYear: Date,
+  publishedAt: Date,
+  pages: Number,
 });
 
 const Book = mongoose.model("Book", bookSchema);
