@@ -1,5 +1,7 @@
 const express = require("express");
+
 const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 
 const router = express.Router();
 
@@ -9,5 +11,7 @@ router
   .route("/:id")
   .patch(userController.updateUser)
   .delete(userController.deleteUser);
+
+router.post("/register", authController.register);
 
 module.exports = router;
