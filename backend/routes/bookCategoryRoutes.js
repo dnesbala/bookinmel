@@ -8,4 +8,9 @@ router
   .get(bookCategoryController.getBookCategory)
   .post(bookCategoryController.createBookCategory);
 
+router
+  .route("/:id")
+  .patch(bookCategoryController.updateBookCategory)
+  .delete(bookCategoryController.deleteBookCategory);
+
 module.exports = router;

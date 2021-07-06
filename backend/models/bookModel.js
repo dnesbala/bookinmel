@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { bookCategorySchema } = require("../models/bookCategoryModel");
 
 const bookSchema = new mongoose.Schema({
   name: {
@@ -19,7 +20,14 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  category: String,
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BookCategory",
+  },
+  isFeatured: {
+    type: Boolean,
+    default: false,
+  },
   isbn: String,
   author: String,
   publisher: String,
