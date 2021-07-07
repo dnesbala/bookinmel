@@ -73,3 +73,45 @@ exports.login = catchAsync(async (req, res, next) => {
 
   sendToken(user, res, 200);
 });
+
+exports.protect = catchAsync(async (req, res, next) => {
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+
+  if (!token)
+    return next(
+      new AppError("You are not logged in. Please log in again.", 401)
+    );
+  const decodedPayload = jwt.verify(token, process.env.JWT_SECRET);
+
+  const user = await User.findById(decodedPayload.id);
+  if (!user)
+    return next(
+      new AppError(
+        "The user belonging to the token no longer exists. Please log in again.",
+        401
+      )
+    );
+
+  req.user = user;
+  next();
+});
+
+exports.restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    console.log(...roles);
+    if (!roles.includes(req.user.role))
+      return next(
+        new AppError(
+          "You donot have permission to perform this operation.",
+          403
+        )
+      );
+    next();
+  };
