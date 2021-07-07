@@ -13,6 +13,8 @@ router
     bookController.createBook
   );
 
+router.get("/featured/:count", bookController.getFeaturedBooks);
+
 router.use(authController.protect, authController.restrictTo("admin"));
 
 router

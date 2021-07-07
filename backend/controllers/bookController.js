@@ -47,3 +47,19 @@ exports.deleteBook = catchAsync(async (req, res, next) => {
     message: `${book.name} deleted successfully.`,
   });
 });
+
+exports.getFeaturedBooks = catchAsync(async (req, res, next) => {
+  const featuredBooks = await Book.find({ isFeatured: true }).limit(
+    +req.params.count
+  );
+
+  if (!featuredBooks) return next(new AppError("Something went wrong.", 400));
+
+  res.status(200).json({
+    status: "success",
+    results: featuredBooks.length,
+    data: {
+      books: featuredBooks,
+    },
+  });
+});
